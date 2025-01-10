@@ -8,9 +8,14 @@ const mongo_url = "mongodb://127.0.0.1:27017/wanderlust";
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./models/user.js");
+
 //using express router
-const reviews = require("./routes/review.js");
-const listings = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
+const listingsRouter = require("./routes/listing.js");
+const userRouter = require("./routes/user.js");
 
 async function main() {
   await mongoose.connect(mongo_url);
@@ -49,17 +54,35 @@ app.get("/", (req, res) => {
 app.use(session(sessionOptions));
 app.use(flash()); //use it before routes cuz we gonna use flash through routes :-/
 
+// Use passport after session cuz we need the session for it to know that session is of individul user
+app.use(passport.initialize());
+app.use(passport.session()); // to identify user from page to page . Their req and res for each user is known as session :-)
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success"); //middleware
   res.locals.error = req.flash("error");
-  // console.log(res.locals.success);
   next();
 });
 
+// app.get("/demouser", async (req, res) => {
+//   let fakeuser = new User({
+//     email: "fakefun@gmail.com",
+//     username: "fake-man", // passport local mongoose added username on its own
+//   });
+
+//   let registereduser = await User.register(fakeuser, "fake@123"); // new user "fakeuser" with password "fake@123"
+//   res.send(registereduser);
+// });
+
 //calling the routes :-)
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews); // issue : the :id param in the param stays in the app.js and doesnt go forward to the review.js
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter); // issue : the :id param in the param stays in the app.js and doesnt go forward to the review.js
 // this is due to being common in the url address above
+app.use("/", userRouter);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
