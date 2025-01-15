@@ -8,15 +8,15 @@
     <div class="card col-6 offset-3 listing-card">
       <img src="<%=listing.image%>" class="card-img-top showimg" alt=":/" />
       <div class="card-body">
-        <p class="card-text">
-          <br />
-          <%=listing.description%> <br />
-          &#8377;<%=listing.price.toLocaleString("en-IN") %> <br />
-          <%=listing.location%>, <%=listing.country%> <br />
-        </p>
+        <p><i>Owned By : <%= listing.owner.username%></i></p>
+        <p><%=listing.description%></p>
+        <p>&#8377;<%=listing.price.toLocaleString("en-IN") %></p>
+
+        <p><%=listing.location%>, <%=listing.country%></p>
       </div>
     </div>
   </div>
+  <% if(currUser && listing.owner._id.equals(currUser._id)){%>
   <div class="btns">
     <a
       href="/listings/<%=listing._id%>/edit"
@@ -28,10 +28,12 @@
       <button class="btn btn-dark offset-5">Delete</button>
     </form>
   </div>
+  <% } %>
   <br />
   <hr />
 
   <div class="col-8 offset-3">
+    <% if(currUser){%>
     <h4>Leave a Review</h4>
 
     <form
@@ -43,6 +45,7 @@
         <label for="rating" class="form-label">Rating</label>
         <input type="range" min="1" max="5" id="rating" name="review[rating]" />
       </div>
+
       <div class="mb-3 mt-3">
         <label for="comment"></label>
         <textarea
@@ -56,15 +59,16 @@
       </div>
       <button class="btn btn-outline-dark">Submit</button>
     </form>
-
     <hr />
+    <% } %>
+
     <h4>All Reviews</h4>
     <div class="row">
       <% for(review of listing.reviews) { %>
 
       <div class="card col-5 mb-3 ms-3">
         <div class="card-body">
-          <h5 class="card-title">User</h5>
+          <h5 class="card-title"><%=review.author.username%></h5>
           <p><%=review.rating%> stars</p>
           <p class="card-text"><%=review.comment%></p>
           <form
