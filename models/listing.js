@@ -10,13 +10,8 @@ const listingSchema = new Schema({
   },
   description: String,
   image: {
-    type: String,
-    set: (v) =>
-      v === ""
-        ? "https://i.pinimg.com/736x/36/0a/2a/360a2a090ea7a364e63141d53eb2dc01.jpg"
-        : v,
-    default:
-      "https://i.pinimg.com/736x/36/0a/2a/360a2a090ea7a364e63141d53eb2dc01.jpg",
+    url: String,
+    filename: String,
   },
   price: Number,
   location: String,
@@ -30,6 +25,17 @@ const listingSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
+  },
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
   },
 });
 

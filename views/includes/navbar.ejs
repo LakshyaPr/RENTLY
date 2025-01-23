@@ -1,8 +1,28 @@
+<style>
+  .search-btn {
+    background-color: #fe424d;
+    color: white;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+  }
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: white;
+  }
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .searchbar {
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    border-radius: 25px;
+  }
+</style>
 <nav
   class="navbar navbar-expand-lg bg-body-light border-bottom border-top sticky-top"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"
+    <a class="navbar-brand ms-3" href="/listings"
       ><i class="fa-regular fa-compass comp"></i
     ></a>
     <button
@@ -15,16 +35,31 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add New</a>
+        <a class="nav-link" href="/listings"><h3>WanderLust</h3></a>
       </div>
+      <!-- <div class="searchbox"><input type="text" placeholder="Search" /></div> -->
+
       <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2 searchbar"
+            type="search"
+            placeholder="Search Location"
+            aria-label="Search"
+          />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">List your home</a>
         <% if (!currUser) { %>
-        <a class="nav-link" href="/signup">SignUp</a>
-        <a class="nav-link" href="/login">LogIn</a>
+        <a class="nav-link" href="/signup"><b>SignUp</b> </a>
+        <a class="nav-link" href="/login"><b>LogIn</b></a>
         <% } %> <% if(currUser){ %>
-        <a class="nav-link" href="/logout">LogOut</a>
+        <a class="nav-link" href="/logout"><b>LogOut</b></a>
         <%}%>
       </div>
     </div>
