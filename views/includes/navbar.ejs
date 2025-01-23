@@ -1,15 +1,23 @@
-<!-- <style>
-  .searchbox input {
-    background: transparent;
-    border-radius: 22px;
-    width: 600px;
-    height: 45px;
-    padding-left: 10px;
+<style>
+  .search-btn {
+    background-color: #fe424d;
+    color: white;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
   }
-  .searchbox {
-    padding-left: 200px;
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: white;
   }
-</style> -->
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .searchbar {
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    border-radius: 25px;
+  }
+</style>
 <nav
   class="navbar navbar-expand-lg bg-body-light border-bottom border-top sticky-top"
 >
@@ -30,6 +38,20 @@
         <a class="nav-link" href="/listings"><h3>WanderLust</h3></a>
       </div>
       <!-- <div class="searchbox"><input type="text" placeholder="Search" /></div> -->
+
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2 searchbar"
+            type="search"
+            placeholder="Search Location"
+            aria-label="Search"
+          />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
 
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">List your home</a>

@@ -108,8 +108,9 @@ h1 {
 }
 
 #map {
-  height: 400px;
-  width: 600px;
+  height: 450px;
+  width: 700px;
+  padding-bottom: 50px;
 }
 
 .search-bar {

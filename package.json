@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "20.16.0"
+  },
   "name": "megaproject",
   "version": "1.0.0",
   "main": "index.js",
@@ -14,6 +17,7 @@
     "@maptiler/sdk": "^3.0.1",
     "cloudinary": "^2.5.1",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
