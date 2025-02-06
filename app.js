@@ -94,6 +94,9 @@ app.use((req, res, next) => {
 // });
 
 //calling the routes :-)
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter); // issue : the :id param in the param stays in the app.js and doesnt go forward to the review.js
 // this is due to being common in the url address above
